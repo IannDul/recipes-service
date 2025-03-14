@@ -1,8 +1,8 @@
 #!/bin/sh
 set -e
 
-echo "Sleep 10 sec"
-sleep 10
+echo "Sleep 20 sec"
+sleep 20
 
 echo "Upgrade db by migrations"
 alembic upgrade head
