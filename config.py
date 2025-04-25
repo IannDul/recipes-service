@@ -16,7 +16,7 @@ class Settings(BaseSettings):
 
     SECRET_KEY: str = 'skdjskaldjfksiekfdjcncbxmsi123'
     ALGORITHM: str = 'HS256'
-    ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 525600
 
     # DATABASE_SQLITE = 'sqlite+aiosqlite:///data/db.sqlite3'
     model_config = SettingsConfigDict(
