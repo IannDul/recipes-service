@@ -7,8 +7,8 @@ from database.model.attributes import Role
 recipe_hashtags = Table(
     'recipe_hashtags',
     Base.metadata,
-    Column('recipe_id', ForeignKey('recipes.id'), primary_key=True),
-    Column('hashtag_id', ForeignKey('hashtags.id'), primary_key=True)
+    Column('recipe_id', ForeignKey('recipes.id', ondelete='CASCADE'), primary_key=True),
+    Column('hashtag_id', ForeignKey('hashtags.id', ondelete='CASCADE'), primary_key=True)
 )
 
 
@@ -75,5 +75,6 @@ class Recipe(Base):
     hashtags: Mapped[list['Hashtag']] = relationship('Hashtag',
                                                      secondary=recipe_hashtags,
                                                      back_populates='recipes',
-                                                     lazy='joined'
+                                                     lazy='joined',
+                                                     passive_deletes=True
                                                      )
