@@ -32,17 +32,6 @@ async def get_all_recipes(cuisines: list[int] = Query(default=[]),
     return recipes
 
 
-@recipes_router.get('/{recipe_id}', response_model=RecipeOutDTO,
-                    description='Получить рецепт по id')
-async def get_recipe_by_id(recipe_id: int):
-    recipe = await RecipeRepo.get_by_id(recipe_id)
-
-    if not recipe:
-        raise HTTPException(status_code=404, detail='Рецепт с таким идентификатором не найден')
-
-    return recipe
-
-
 @recipes_router.get('/cuisines', response_model=List[CuisineOutDTO],
                     description='Получить все кухни')
 async def get_all_cuisines():
@@ -76,6 +65,17 @@ async def create_recipe(recipe: RecipeInDTO,
     except IntegrityError:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
                             detail='Какие-то из атрибутов переданы с несуществующими идентификаторами.')
+
+
+@recipes_router.get('/{recipe_id}', response_model=RecipeOutDTO,
+                    description='Получить рецепт по id')
+async def get_recipe_by_id(recipe_id: int):
+    recipe = await RecipeRepo.get_by_id(recipe_id)
+
+    if not recipe:
+        raise HTTPException(status_code=404, detail='Рецепт с таким идентификатором не найден')
+
+    return recipe
 
 
 @recipes_router.delete('/{recipe_id}', response_model=int,
